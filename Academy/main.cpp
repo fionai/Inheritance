@@ -10,7 +10,7 @@ using std::endl;
 using std::string;
 
 #define delimiter "\n---------------------\n"
-//#define DEBUG
+#define DEBUG
 
 #define HUMAN_TAKE_PARAMETERS const std::string& last_name, const std::string& first_name, int age
 #define HUMAN_GIVE_PARAMETERS last_name, first_name, age
@@ -288,10 +288,10 @@ std::ostream& operator<< (std::ostream& os, const Graduate& obj)
 
 //#define INHERITANCE
 //#define POLYMORPHISM
-//#define STD_COUT
+#define STD_COUT
 //#define WRITE_GROUP_TO_FILE
 //#define TEST_READ_GROUP_FROM_FILE
-#define READ_GROUP_FROM_FILE
+//#define READ_GROUP_FROM_FILE
 
 void main()
 {
@@ -475,18 +475,12 @@ void main()
 						break;
 					}
 					case 5: {
-						//char* ln = strtok(str_buf, "|");
-						//char* fn = strtok(NULL, "|");
-						//int age_tmp = atoi(strtok(NULL, "|"));
 						char* sp = strtok(NULL, "|");
 						int exp = atoi(strtok(NULL, "|"));
 						group_from_file[n_current] = new Teacher(ln, fn, age_tmp, sp, exp);
 						break;
 					}
 					case 7: {
-						//char* ln = strtok(str_buf, "|");
-						//char* fn = strtok(NULL, "|");
-						//int age_tmp = atoi(strtok(NULL, "|"));
 						char* sp = strtok(NULL, "|");
 						char* gr = strtok(NULL, "|");
 						int rate = atoi(strtok(NULL, "|"));
@@ -495,9 +489,6 @@ void main()
 						break;
 					}
 					case 8: {
-						//char* ln = strtok(str_buf, "|");
-						//char* fn = strtok(NULL, "|");
-						//int age_tmp = atoi(strtok(NULL, "|"));
 						char* sp = strtok(NULL, "|");
 						char* gr = strtok(NULL, "|");
 						int rate = atoi(strtok(NULL, "|"));
@@ -518,8 +509,15 @@ void main()
 			for (int i = 0; i < n; i++)  //sizeof(group_from_file) / sizeof(group_from_file[0]) - не работает!!!
 			{
 				cout << delimiter;
+#ifdef DEBUG
+				cout << "INFO(): ";
+#endif // DEBUG
+
 				group_from_file[i]->info();
-				//cout << *group_from_file[i] << endl;
+#ifdef DEBUG
+				cout << "COUT: " << *group_from_file[i] << endl;
+#endif // DEBUG
+
 			}
 			for (int i = 0; i < n; i++)
 			{
