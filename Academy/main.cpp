@@ -14,7 +14,7 @@ class Human
 	std::string last_name;
 	std::string first_name;
 	int age;
-
+	static int count;
 public:
 	const std::string& get_last_name() const
 	{
@@ -27,6 +27,10 @@ public:
 	int get_age() const
 	{
 		return age;
+	}
+	static int get_count()
+	{
+		return count;
 	}
 	void set_last_name(const std::string& last_name)
 	{
@@ -46,10 +50,12 @@ public:
 		set_last_name(last_name);
 		set_first_name(first_name);
 		set_age(age);
+		count++;
 		cout << "HConstructor:\t" << this << endl;
 	}
 	virtual ~Human()
 	{
+		count--;
 		cout << "HDestructor:\t" << this << endl;
 	}
 	//	Methods
@@ -58,6 +64,7 @@ public:
 		cout << last_name << " " << first_name << " " << age << endl;
 	}
 };
+int Human::count = 0;
 
 #define STUDENT_TAKE_PARAMETERS const std::string& speciality, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETERS speciality, group, rating, attendance
@@ -234,8 +241,10 @@ void main()
 		group[i]->info();
 		cout << delimiter;
 	}
+	cout << "Количество людей: " << Human::get_count() << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
 		delete group[i];
 	}
+	cout << "Количество людей: " << Human::get_count() << endl;
 }
