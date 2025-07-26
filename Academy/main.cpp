@@ -229,12 +229,12 @@ void main()
 
 	Human* group[] =
 	{
-		new Human("Montana", "Antonio", 25),
-		new Student("Pinkman", "Jessie", 22, "Chemistry", "WW_220", 95, 99),
-		new Teacher("White", "Walter", 50, "Chemistry", 25),
-		new Graduate("Schreder", "Hank", 40, "Criminalistic", "WW_220", 40, 60, "How to catch Heisenberg"),
-		new Student("Vercetty", "Tommy", 30, "Theft", "Vice", 98, 99),
-		new Teacher("Diaz", "Ricardo", 50, "Weapons disrtibution", 20)
+		new Human("Montana",	"Antonio",	25),
+		new Student("Pinkman",	"Jessie",	22, "Chemistry",			"WW_220",	95, 99),
+		new Teacher("White",	"Walter",	50, "Chemistry",			25),
+		new Graduate("Schreder", "Hank",	40, "Criminalistic",		"WW_220",	40, 60, "How to catch Heisenberg"),
+		new Student("Vercetty", "Tommy",	30, "Theft",				"Vice",		98, 99),
+		new Teacher("Diaz",		"Ricardo",	50, "Weapons disrtibution",	20)
 	};
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
