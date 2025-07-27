@@ -111,8 +111,8 @@ class Student :public Human
 	static const int SPECIALITY_WIDTH = 22;
 	static const int GROUP_WIDTH = 8;
 	static const int RATING_WIDTH = 5;
-	std::string speciality;
-	std::string group;
+	std::string speciality; //спец»альность
+	std::string group; //√руппа
 	double rating; //успеваемость
 	double attendance; //посещаемость
 public:
@@ -189,6 +189,15 @@ public:
 	}
 	 std::istream& scan(std::istream& is) override
 	 {
+		 /*char* buffer = new char[SPECIALITY_WIDTH + 2];
+		 Human::scan(is);
+		 is.read(buffer, 22);
+		 speciality = buffer;
+		 is >> group;
+		 is >> rating;
+		 is >> attendance;
+		 return is; */
+	
 		 return Human::scan(is) >> speciality >> group >> rating >> attendance;
 	 }
 }; //end of Student
@@ -255,7 +264,16 @@ public:
 	}
 	std::istream& scan(std::istream& is) override
 	{
-		return Human::scan(is) >> speciality >> experience;
+		char* buffer = new char[SPECIALITY_WIDTH] {};
+		Human::scan(is);
+		buffer[SPECIALITY_WIDTH - 1] = 0;
+		is.read(buffer, SPECIALITY_WIDTH);
+		buffer[SPECIALITY_WIDTH-1] = 0;
+		speciality = buffer + 1;
+		is >> experience;
+		delete[] buffer;
+		return is;
+		//return Human::scan(is) >> speciality >> experience;
 	}
 }; //end of Teacher
 

@@ -1,8 +1,8 @@
 Human:    Montana           Antonio        25 
 Student:  Pinkman           Jessie         22 Chemistry             WW_220  95   99   
 Teacher:  White             Walter         50 Chemistry             25 
-Graduate: Schreder          Hank           40 Criminalistic         WW_220  40   60   How
+Graduate: Schreder          Hank           40 Criminalistic         WW_220  40   60   How to catch Heisenberg
 Student:  Vercetty          Tommy          30 Theft                 Vice    98   99   
-Teacher:  Diaz              Ricardo        50 Weapons  20 
-Graduate: Targarian         Daineris       22 Flight                GoT     91   92   How
-Teacher:  Schwartzenegger   Arnold         85 Heavy           60 
+Teacher:  Diaz              Ricardo        50 Weapons disrtibution  20 
+Graduate: Targarian         Daineris       22 Flight                GoT     91   92   How to make smoke   
+Teacher:  Schwartzenegger   Arnold         85 Heavy Metal           60 
