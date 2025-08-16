@@ -19,10 +19,10 @@ class Human
 	static const int FIRST_NAME_WIDTH = 15;
 	static const int AGE_WIDTH = 3;
 	//static int count;  //ÎØÈÁÊÀ REDEFINITION!!!!
+	static int count;
 	std::string last_name;
 	std::string first_name;
 	int age;
-	static int count;
 public:
 	static int get_count()
 	{
@@ -264,12 +264,13 @@ public:
 	}
 	std::istream& scan(std::istream& is) override
 	{
-		char* buffer = new char[SPECIALITY_WIDTH] {};
+		char* buffer = new char[SPECIALITY_WIDTH+1] {};
 		Human::scan(is);
-		buffer[SPECIALITY_WIDTH - 1] = 0;
 		is.read(buffer, SPECIALITY_WIDTH);
-		buffer[SPECIALITY_WIDTH-1] = 0;
-		speciality = buffer + 1;
+		while (buffer[0] == ' ')for (int i = 0; buffer[i]; i++)buffer[i] = buffer[i + 1];
+		for (char* pch = strrchr(buffer, ' '); *pch == ' '; pch--)*pch = 0;
+		//buffer[SPECIALITY_WIDTH-1] = 0;
+		speciality = buffer;// +1;
 		is >> experience;
 		delete[] buffer;
 		return is;

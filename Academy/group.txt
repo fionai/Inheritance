@@ -4,5 +4,5 @@ Teacher:  White             Walter         50 Chemistry             25
 Graduate: Schreder          Hank           40 Criminalistic         WW_220  40   60   How to catch Heisenberg
 Student:  Vercetty          Tommy          30 Theft                 Vice    98   99   
 Teacher:  Diaz              Ricardo        50 Weapons disrtibution  20 
-Graduate: Targarian         Daineris       22 Flight                GoT     91   92   How to make smoke   
-Teacher:  Schwartzenegger   Arnold         85 Heavy Metal           60 
+Graduate: Targarian         Daineris       22 Flight---            GoT     91   92   How to make smoke   
+Teacher:  Schwartzenegger   Arnold         85      Heavy     Metal           60 
