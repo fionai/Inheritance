@@ -285,7 +285,7 @@ void main()
 	//Shape shape(Color::Blue);
 	Geometry:: Square square(50, 100, 500, 5, Geometry::Color::Red);
 	square.info(); 
-	Geometry::Rectangle rectangle(70, 20, 300, 500, 7, Geometry::Color::Blue);
+	Geometry::Rectangle rectangle(70, 20, 300, 500, 7, Geometry::Color::Violet);
 	rectangle.info();
 	Geometry::Circle circle(75, 500, 501, 3, Geometry::Color::Yellow);
 	circle.info();
