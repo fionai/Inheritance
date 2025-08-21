@@ -15,6 +15,7 @@ namespace Geometry
 
 #define SHAPE_TAKE_PARAMETERS int start_x, int start_y, int line_width, Color color
 #define SHAPE_GIVE_PARAMETERS  start_x,  start_y,  line_width,  color
+#define PI 3.14159265358979323846
 
 	class Shape
 	{
@@ -85,7 +86,7 @@ namespace Geometry
 		virtual void info() const
 		{
 			cout << "Площадь фигуры: " << get_area() << endl;
-			cout << "Периметр квадрата: " << get_perimeter() << endl;
+			cout << "Периметр фигуры: " << get_perimeter() << endl;
 			draw();
 		}
 
@@ -213,6 +214,68 @@ namespace Geometry
 	public:
 		Square(double side, SHAPE_TAKE_PARAMETERS) : Rectangle(side, side, SHAPE_GIVE_PARAMETERS) {}
 	};
+	class Circle :public Shape
+	{
+		double radius;
+	public:
+		void set_radius(double radius)
+		{
+			this->radius = radius;
+		}
+		double get_radius() const
+		{
+			return radius;
+		}
+		double get_area() const override
+		{
+			return PI * radius * radius;
+		}
+		double get_perimeter() const override
+		{
+			return 2 * PI * radius;
+		}
+		void draw() const override
+		{
+			cout << "==========This is circle=============\n";
+			//Получаем окно консоли
+			HWND hwnd = GetConsoleWindow();
+			//Получаем контекст устройтсва консольного окна
+			HDC hdc = GetDC(hwnd); //контекст устройтсва (DeviceContext) - то, на чем мы будем рисовать
+			//Чем мы будем рисовать
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color); //Pen рисует контур фигуры
+			//PS_SOLID - сплошная линия
+			// line_width - толщина линии line_width пиксель
+			//RGB - линия красного цвета
+
+			//Создаем кисть, которая выполняет заливку фигуры:
+			HBRUSH hBrush = CreateSolidBrush(color);
+
+			//Выбираем, чем и на чем будем рисовать
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+
+			//Вызываем нужную ф-ию для рисования
+			::Ellipse(hdc, start_x, start_y, start_x +radius, start_y + radius);
+
+			//Удаляем карандаш, поскольку он тоже занимет ресурсы
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+
+			//Контекст устройтсва занимает ресурсы, которые нужно освободить:
+			ReleaseDC(hwnd, hdc);
+		}
+		Circle(double radius, SHAPE_TAKE_PARAMETERS) :Shape(SHAPE_GIVE_PARAMETERS)
+		{
+			set_radius(radius);
+		}
+		void info() const override
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "radius: " << get_radius() << endl;
+			//cout << "Side 2: " << get_side_2() << endl;
+			Shape::info();
+		}
+	};
 
 }
 
@@ -220,8 +283,10 @@ void main()
 {
 	setlocale(LC_ALL, "");
 	//Shape shape(Color::Blue);
-	Geometry:: Square square(50, 400, 100, 5, Geometry::Color::Red);
+	Geometry:: Square square(50, 100, 500, 5, Geometry::Color::Red);
 	square.info(); 
-	Geometry::Rectangle rectangle(200, 150, 550, 100, 1, Geometry::Color::Blue);
+	Geometry::Rectangle rectangle(70, 20, 300, 500, 7, Geometry::Color::Blue);
 	rectangle.info();
+	Geometry::Circle circle(75, 500, 501, 3, Geometry::Color::Yellow);
+	circle.info();
 }
