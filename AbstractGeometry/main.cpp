@@ -17,6 +17,29 @@ namespace Geometry
 #define SHAPE_GIVE_PARAMETERS  start_x,  start_y,  line_width,  color
 #define PI 3.14159265358979323846
 
+	class Point
+	{
+		int x;
+		int y;
+	public:
+		void set_x(int x)
+		{
+			this->x = x;
+		}
+		void set_y(int y)
+		{
+			this->y = y;
+		}
+		double get_x() const
+		{
+			return x;
+		}
+		double get_y() const
+		{
+			return y;
+		}
+
+	};
 	class Shape
 	{
 		static const int MIN_START_X = 100;
@@ -236,7 +259,6 @@ namespace Geometry
 		}
 		void draw() const override
 		{
-			cout << "==========This is circle=============\n";
 			//ѕолучаем окно консоли
 			HWND hwnd = GetConsoleWindow();
 			//ѕолучаем контекст устройтсва консольного окна
@@ -276,7 +298,146 @@ namespace Geometry
 			Shape::info();
 		}
 	};
+	class Triangle :public Shape
+	{
+		int point1_x;
+		int point1_y;
+		int point2_x;
+		int point2_y;
+		int point3_x;
+		int point3_y;
+	public:
+		void set_point1_x(int point1_x)
+		{
+			this->point1_x = point1_x;
+		}
+		void set_point1_y(int point1_y)
+		{
+			this->point1_y = point1_y;
+		}
+		void set_point2_x(int point2_x)
+		{
+			this->point2_x = point2_x;
+		}
+		void set_point2_y(int point2_y)
+		{
+			this->point2_y = point2_y;
+		}
+		void set_point3_x(int point3_x)
+		{
+			this->point3_x = point3_x;
+		}
+		void set_point3_y(int point3_y)
+		{
+			this->point3_y = point3_y;
+		}
 
+		int get_point1_x() const
+		{
+			return point1_x;
+		}
+		int get_point1_y() const
+		{
+			return point1_y;
+		}
+		int get_point2_x() const
+		{
+			return point2_x;
+		}
+		int get_point2_y() const
+		{
+			return point2_y;
+		}
+		int get_point3_x() const
+		{
+			return point3_x;
+		}
+		int get_point3_y() const
+		{
+			return point3_y;
+		}
+
+		double get_area() const override
+		{
+			//находим длины сторон
+			double s12 = sqrt((point1_x - point2_x)*(point1_x - point2_x) + (point1_y - point2_y)*(point1_y - point2_y));
+			double s23 = sqrt((point2_x - point3_x)*(point2_x - point3_x) + (point2_y - point3_y)*(point2_y - point3_y));
+			double s13 = sqrt((point1_x - point3_x)*(point1_x - point3_x) + (point1_y - point3_y)*(point1_y - point3_y));
+
+			//находим полупериметр
+			double hp = (s12 + s23 + s13) / 2;
+
+			//считаем S по формуле √ерона
+			return sqrt(hp * (hp - s12) * (hp - s23) * (hp - s13));
+		}
+		double get_perimeter() const override
+		{
+			//находим длины сторон
+			double s12 = sqrt((point1_x - point2_x) * (point1_x - point2_x) + (point1_y - point2_y) * (point1_y - point2_y));
+			double s23 = sqrt((point2_x - point3_x) * (point2_x - point3_x) + (point2_y - point3_y) * (point2_y - point3_y));
+			double s13 = sqrt((point1_x - point3_x) * (point1_x - point3_x) + (point1_y - point3_y) * (point1_y - point3_y));
+
+			//находим периметр
+			return (s12 + s23 + s13);
+		}
+		void draw() const override
+		{
+			//ѕолучаем окно консоли
+			HWND hwnd = GetConsoleWindow();
+			//ѕолучаем контекст устройтсва консольного окна
+			HDC hdc = GetDC(hwnd); //контекст устройтсва (DeviceContext) - то, на чем мы будем рисовать
+			//„ем мы будем рисовать
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color); //Pen рисует контур фигуры
+			//PS_SOLID - сплошна€ лини€
+			// line_width - толщина линии line_width пиксель
+			//RGB - лини€ красного цвета
+
+			//—оздаем кисть, котора€ выполн€ет заливку фигуры:
+			HBRUSH hBrush = CreateSolidBrush(color);
+
+			//¬ыбираем, чем и на чем будем рисовать
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+
+			/*Point apt[3];
+			apt[0].set_x(700);
+			apt[0].set_y(500);
+			apt[1].set_x(730);
+			apt[1].set_y(500);
+			apt[2].set_x(715);
+			apt[2].set_y(520);
+
+			//¬ызываем нужную ф-ию дл€ рисовани€
+			::Polygon(hdc, apt, 3);*/
+
+
+			cout << "==============This is TRIANGLE=================";
+
+			//”дал€ем карандаш, поскольку он тоже занимет ресурсы
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+
+			// онтекст устройтсва занимает ресурсы, которые нужно освободить:
+			ReleaseDC(hwnd, hdc);
+		}
+		Triangle(int point1_x, int point1_y, int point2_x, int point2_y, int point3_x, int point3_y, SHAPE_TAKE_PARAMETERS) :Shape(SHAPE_GIVE_PARAMETERS)
+		{
+			set_point1_x(point1_x);
+			set_point1_y(point1_y);
+			set_point2_x(point2_x);
+			set_point2_y(point2_y);
+			set_point3_x(point3_x);
+			set_point3_y(point3_y);
+		}
+		void info() const override
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "Point1: " << get_point1_x() << " " << get_point1_y() << endl;
+			cout << "Point2: " << get_point2_x() << " " << get_point2_y() << endl;
+			cout << "Point3: " << get_point3_x() << " " << get_point3_y() << endl;
+			Shape::info();
+		}
+	};
 }
 
 void main()
@@ -287,6 +448,8 @@ void main()
 	square.info(); 
 	Geometry::Rectangle rectangle(70, 20, 300, 500, 7, Geometry::Color::Violet);
 	rectangle.info();
-	Geometry::Circle circle(75, 500, 501, 3, Geometry::Color::Yellow);
+	Geometry::Circle circle(75, 500, 500, 3, Geometry::Color::Yellow);
 	circle.info();
+	Geometry::Triangle triangle(700, 500, 730, 500, 720, 520, 0, 0, 3, Geometry::Color::Green);
+	triangle.info();
 }
